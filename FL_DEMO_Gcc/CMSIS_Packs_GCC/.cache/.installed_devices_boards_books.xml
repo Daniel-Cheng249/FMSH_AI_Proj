@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root version="1.2">
+  <node type="boards" name="Boards">
+  </node>
+  <node type="devices" name="Devices">
+    <node type="vendor" name="FMSH">
+      <property name="vendor.id">159</property>
+      <node type="family" name="FM33HT0XXA Series">
+        <property name="vendor.name">FMSH</property>
+        <property name="vendor.id">159</property>
+        <property name="pack.vendor">Keil</property>
+        <property name="pack.name">FM33HT0XXA_DFP</property>
+        <property name="pack.version">0.0.1</property>
+        <property name="core">Cortex-M0</property>
+        <property name="core.version">r2p1</property>
+        <property name="fpu">0</property>
+        <property name="mpu">0</property>
+        <property name="endian">Little-endian</property>
+        <node type="subfamily" name="FM33HT0XXA">
+          <property name="mpu">0</property>
+          <property name="clock">72000000</property>
+          <property name="svd.file">SVD/FM33HT0XXA.SVD</property>
+          <property name="define">FM33HT0XXA</property>
+          <node type="device" name="FM33HT04XA">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x40000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x6000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33HT05XA">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x60000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x8000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+        </node>
+      </node>	    
+        <node type="family" name="FM33FG0XXA Series">
+        <property name="vendor.name">FMSH</property>
+        <property name="vendor.id">159</property>
+        <property name="pack.vendor">Keil</property>
+        <property name="pack.name">FM33FG0XXA_DFP</property>
+        <property name="pack.version">0.0.6</property>
+        <property name="core">Cortex-M0</property>
+        <property name="core.version">r2p1</property>
+        <property name="fpu">0</property>
+        <property name="mpu">1</property>
+        <property name="endian">Little-endian</property>
+        <node type="subfamily" name="FM33FG0XXA">
+          <property name="mpu">1</property>
+          <property name="clock">64000000</property>
+          <property name="svd.file">SVD/FM33FG0XXA.SVD</property>
+          <property name="define">FM33FG0XXA</property>
+          <node type="device" name="FM33FG04XA">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x40000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x8000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33FG06XA">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x80000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x10000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+        </node>
+      </node>    
+      <node type="family" name="FM33LE0XXA Series">
+        <property name="vendor.name">FMSH</property>
+        <property name="vendor.id">159</property>
+        <property name="pack.vendor">Keil</property>
+        <property name="pack.name">FM33LE0XXA_DFP</property>
+        <property name="pack.version">1.0.1</property>
+        <property name="core">Cortex-M0</property>
+        <property name="core.version">r2p1</property>
+        <property name="fpu">0</property>
+        <property name="mpu">0</property>
+        <property name="endian">Little-endian</property>
+        <node type="subfamily" name="FM33LE0XXA">
+          <property name="mpu">0</property>
+          <property name="clock">64000000</property>
+          <property name="svd.file">SVD/FM33LE0XXA.SVD</property>
+          <property name="define">FM33LE0XXA</property>
+          <node type="device" name="FM33LE01XA">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x10000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x4000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33LE02XA">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x20000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x8000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+        </node>
+      </node>       
+      <node type="family" name="FM33LC0XX Series">
+        <property name="vendor.name">FMSH</property>
+        <property name="vendor.id">159</property>
+        <property name="pack.vendor">Keil</property>
+        <property name="pack.name">FM33LC0XX_DFP</property>
+        <property name="pack.version">3.0.1</property>
+        <property name="core">Cortex-M0</property>
+        <property name="core.version">r2p1</property>
+        <property name="fpu">0</property>
+        <property name="mpu">0</property>
+        <property name="endian">Little-endian</property>
+        <node type="subfamily" name="FM33LC0XX">
+          <property name="mpu">0</property>
+          <property name="clock">64000000</property>
+          <property name="svd.file">SVD/FM33LC0XX.SVD</property>
+          <property name="define">FM33LC0xx</property>
+          <node type="device" name="FM33LC01X">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x10000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x4000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33LC02X">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x20000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x6000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33LC04X">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x40000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x6000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+        </node>
+      </node>   
+      <node type="family" name="FM33LG0XX Series">
+        <property name="vendor.name">FMSH</property>
+        <property name="vendor.id">159</property>
+        <property name="pack.vendor">Keil</property>
+        <property name="pack.name">FM33LG0XX_DFP</property>
+        <property name="pack.version">2.0.0</property>
+        <property name="core">Cortex-M0</property>
+        <property name="core.version">r2p1</property>
+        <property name="fpu">0</property>
+        <property name="mpu">1</property>
+        <property name="endian">Little-endian</property>
+        <node type="subfamily" name="FM33LG0XX">
+          <property name="mpu">1</property>
+          <property name="clock">64000000</property>
+          <property name="svd.file">SVD/FM33LG0XX.SVD</property>
+          <property name="define">FM33LG0xx</property>
+          <node type="device" name="FM33LG01X">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x10000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x4000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33LG02X">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x20000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x8000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33LG04X">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x40000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x8000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+        </node>
+      </node>   
+      <node type="family" name="FM33L0XX Series">
+        <property name="vendor.name">FMSH</property>
+        <property name="vendor.id">159</property>
+        <property name="pack.vendor">Keil</property>
+        <property name="pack.name">FM33L0XX_DFP</property>
+        <property name="pack.version">0.1.4</property>
+        <property name="core">Cortex-M0</property>
+        <property name="core.version">r2p1</property>
+        <property name="fpu">0</property>
+        <property name="mpu">0</property>
+        <property name="endian">Little-endian</property>
+        <node type="subfamily" name="FM33L0XX">
+          <property name="mpu">0</property>
+          <property name="clock">48000000</property>
+          <property name="svd.file">SVD/FM33L0XX.SVD</property>
+          <property name="define">FM33L0xx</property>
+          <node type="device" name="FM33L01X">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x10000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x4000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33L02X">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x20000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x4000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+        </node>
+      </node>     
+      <node type="family" name="FM33A0XX Series">
+        <property name="vendor.name">FMSH</property>
+        <property name="vendor.id">159</property>
+        <property name="pack.vendor">Keil</property>
+        <property name="pack.name">FM33A0XX_DFP</property>
+        <property name="pack.version">0.3.00</property>
+        <property name="core">Cortex-M0</property>
+        <property name="core.version">r2p1</property>
+        <property name="fpu">0</property>
+        <property name="mpu">1</property>
+        <property name="endian">Little-endian</property>
+        <node type="subfamily" name="FM33A0XX">
+          <property name="mpu">0</property>
+          <property name="clock">40000000</property>
+          <property name="svd.file">SVD/FM33A0XX.SVD</property>
+          <property name="define">FM33A0xx</property>
+          <node type="device" name="FM33A06XX">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x80000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x10000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33A04XX">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x40000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x8000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+        </node>
+      </node> 
+        <node type="family" name="FM33G0XX Series">
+        <property name="vendor.name">FMSH</property>
+        <property name="vendor.id">159</property>
+        <property name="pack.vendor">Keil</property>
+        <property name="pack.name">FM33G0XX_DFP</property>
+        <property name="pack.version">0.3.00</property>
+        <property name="core">Cortex-M0</property>
+        <property name="core.version">r2p1</property>
+        <property name="fpu">0</property>
+        <property name="mpu">1</property>
+        <property name="endian">Little-endian</property>
+        <node type="subfamily" name="FM33G0XX">
+          <property name="mpu">0</property>
+          <property name="clock">40000000</property>
+          <property name="svd.file">SVD/FM33G0XX.SVD</property>
+          <property name="define">FM33G0xx</property>
+          <node type="device" name="FM33G02XX">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x20000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x8000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+          <node type="device" name="FM33G04XX">
+            <node type="memory" name="IROM1">
+              <property name="start">0x00000000</property>
+              <property name="size">0x40000</property>
+              <property name="startup">1</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+            <node type="memory" name="IRAM1">
+              <property name="start">0x20000000</property>
+              <property name="size">0x8000</property>
+              <property name="access"></property>
+              <property name="alias"></property>
+            </node>
+          </node>
+        </node>
+      </node> 
+    </node>
+  </node>
+</root>
