@@ -1,0 +1,33 @@
+# 编译输出目录（如果你有build文件夹）
+build/
+
+# GCC编译生成的中间文件
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.map
+*.lst
+
+# 编译日志和临时文件
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# 依赖文件
+*.d
+
+# IDE和编辑器相关（可按需保留）
+.vscode/
+.idea/
+*.code-workspace
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 其他可执行文件或输出
+*.out
