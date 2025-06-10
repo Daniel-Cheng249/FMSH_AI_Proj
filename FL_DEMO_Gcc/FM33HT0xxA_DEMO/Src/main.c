@@ -37,6 +37,7 @@
 #include "svd.h"
 #include "rmu.h"
 
+#include "hello_world_test.h"
 
 #define LED0_GPIO    GPIOB
 #define LED0_PIN     FL_GPIO_PIN_10
@@ -104,7 +105,10 @@ int main(void)
     
     /* LED 初始化 */
     LED_Init();
-    
+
+    CapClassificationSetup();
+    CapClassificationPerformInference(); 
+
     while(1)
     {    
         /* 清狗 */

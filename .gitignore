@@ -1,0 +1,57 @@
+# --------------------------------------------------
+# Build output directories
+# --------------------------------------------------
+/build/
+/bin/
+
+# --------------------------------------------------
+# Compiler generated files
+# --------------------------------------------------
+*.o
+*.d
+*.lst
+*.map
+*.hex
+*.bin
+*.elf
+
+# --------------------------------------------------
+# IDE related files - VS Code
+# --------------------------------------------------
+/.vscode/
+*.code-workspace
+
+# --------------------------------------------------
+# Editor backup/temp files
+# --------------------------------------------------
+*~
+.*.swp
+.#*
+*.bak
+*.tmp
+
+# --------------------------------------------------
+# OS generated files
+# --------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# --------------------------------------------------
+# Logs and databases
+# --------------------------------------------------
+*.log
+
+# --------------------------------------------------
+# TensorFlow Lite Micro 自动生成的缓存文件
+# --------------------------------------------------
+/COMPONENT_TFLM/include/tensorflow/lite/micro/tools/make/gen/
+/COMPONENT_TFLM/COMPONENT_CM4P/COMPONENT_SOFTFP/TOOLCHAIN_GCC_ARM/libtensorflow-microlite.a
+/COMPONENT_TFLM/COMPONENT_CM4P/COMPONENT_SOFTFP/TOOLCHAIN_GCC_ARM/libtensorflow-microlite.aa
+
+# --------------------------------------------------
+# Optional: 如果使用 STM32CubeIDE / Eclipse 等工具
+# --------------------------------------------------
+.metadata/
+.debug/
+*.launch
+*.workspace
