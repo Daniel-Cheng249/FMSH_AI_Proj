@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<repositories>
-  <repository>
-    <type>CMSIS Pack</type>
-    <name>FMSH</name>
-    <url>https://dev-config.oss-cn-shanghai.aliyuncs.com/index.pidx</url>
-  </repository>
-</repositories>
