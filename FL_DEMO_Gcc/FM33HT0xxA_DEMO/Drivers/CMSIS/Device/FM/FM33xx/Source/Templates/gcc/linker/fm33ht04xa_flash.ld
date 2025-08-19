@@ -10,7 +10,7 @@ _Stack_Size = 0x800;        /* amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 24K
+RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 32K
 FLASH (rx)     : ORIGIN = 0x00000000, LENGTH = 256K
 }
 

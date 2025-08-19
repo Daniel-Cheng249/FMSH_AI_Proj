@@ -15,7 +15,7 @@ GDB     := $(CROSS_COMPILE)gdb
 
 # Project Configuration
 # --------------------
-TARGET     := firmware_fmsh
+TARGET     := firmware_fmsh_cap
 BUILD_DIR  := build
 BIN_DIR    := bin
 
@@ -91,6 +91,10 @@ INCLUDES += \
     -IDrivers/CMSIS/Include \
     -IDrivers/CMSIS/Device/FM/FM33xx/Include \
     -IDrivers/FM33HT0xxA_FL_Driver/Inc \
+    -ITSI/Users \
+    -ITSI/Library \
+    -ITSI/Library/Devices \
+    -ITSI/Library/Plugins \
     -IMF-config/Inc \
     -ICOMPONENT_TFLM/include \
     -ICOMPONENT_TFLM/include/tensorflow/lite/micro/tools/make/downloads/flatbuffers/include \
@@ -117,7 +121,11 @@ C_SOURCES   := $(wildcard User/*.c) \
                $(wildcard Drivers/CMSIS/Device/FM/FM33xx/Source/*.c) \
                $(wildcard Drivers/FM33HT0xxA_FL_Driver/Src/*.c) \
 			   $(wildcard MF-config/Src/*.c) \
-			   $(wildcard Src/*.c) 
+			   $(wildcard Src/*.c) \
+ 			   $(wildcard TSI/Users/*.c) \
+ 			   $(wildcard TSI/Library/*.c) \
+ 			   $(wildcard TSI/Library/Devices/*.c) \
+ 			   $(wildcard TSI/Library/Plugins/*.c)              
 
 CXX_SOURCES := $(wildcard Src/*.cpp) \
             #    $(wildcard lib/src/*.cpp) \

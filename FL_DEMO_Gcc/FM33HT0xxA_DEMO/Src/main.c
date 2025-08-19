@@ -37,6 +37,9 @@
 #include "svd.h"
 #include "rmu.h"
 
+/* Library includes */
+#include "tsi.h"
+
 #include "hello_world_test.h"
 
 #define LED0_GPIO    GPIOB
@@ -46,6 +49,11 @@
 #define LED0_OFF()   FL_GPIO_SetOutputPin(LED0_GPIO, LED0_PIN)
 #define LED0_TOG()   FL_GPIO_ToggleOutputPin(LED0_GPIO, LED0_PIN)
 
+
+#define TSI_OPEN     true
+
+/* Private function prototypes ----------------------------------------------*/
+static void SystemClockInit(void);
 
 /**
   * @brief  HardFault 中断服务函数 请保留 
@@ -86,7 +94,17 @@ int main(void)
 {   
     /* 使能IWDT */
     (void)IWDT_Init(FL_IWDT_PERIOD_4000MS);
-    
+
+#if(TSI_OPEN == true)    
+    /* 需在触摸初始化之前配置RCHF */
+    FL_CMU_RCHF_WriteTrimValue(RCHF8M_TRIM);
+    FL_CMU_RCHF_SetFrequency(FL_CMU_RCHF_FREQUENCY_8MHZ);
+    /* USER CODES AREA 1 END */
+
+    /* Init system clock */
+    SystemClockInit();    
+#endif 
+
     /* 延时函数初始化 */
     FL_Init();
     
@@ -102,12 +120,26 @@ int main(void)
     /* Initialize all configured peripherals */
     /* SHOULD BE KEPT!!! */
     MF_Config_Init();
-    
-    /* LED 初始化 */
-    LED_Init();
 
-    CapClassificationSetup();
-    CapClassificationPerformInference(); 
+#if(TSI_OPEN == true)     
+    /* Init TSI library */   
+    TSI_Init(&TSI_LibHandle); 
+    /* Enable all widget and start scan */
+    TSI_Widget_EnableAll(&TSI_LibHandle); 
+
+    /* Enable only Expad widget for TFLM Test */ 
+    // TSI_Widget_Enable(&TSI_LibHandle,(TSI_WidgetTypeDef *)&TSI_WidgetList.Button_ExPad1_MC);       
+    // TSI_Widget_Enable(&TSI_LibHandle,(TSI_WidgetTypeDef *)&TSI_WidgetList.Button_ExPad1_Rx);
+    // TSI_Widget_Enable(&TSI_LibHandle,(TSI_WidgetTypeDef *)&TSI_WidgetList.Button_ExPad1_Tx);
+
+    TSI_Start(&TSI_LibHandle);       
+#endif  
+
+    /* LED 初始化 */
+    //LED_Init();
+
+    //CapClassificationSetup();
+    //CapClassificationPerformInference(); 
 
     while(1)
     {    
@@ -115,9 +147,73 @@ int main(void)
         IWDT_Clr();
         
         /* LED 闪烁 */
-        LED0_TOG();
+        //LED0_TOG();
         FL_DelayMs(500);
+
+#if(TSI_OPEN == true) 
+        TSI_Handler(&TSI_LibHandle);
+#endif        
     }
 }
 
 
+#if(TSI_OPEN == true) 
+/* Private functions --------------------------------------------------------*/
+/**
+ * @brief Init system clock.
+ *
+ */
+void SystemClockInit(void)
+{
+    /* USER PRE SYSTEM CLOCK INIT BEGIN */
+
+    /* USER PRE SYSTEM CLOCK INIT END */
+
+    /* Enable RCHF 8MHz */
+    FL_CMU_RCHF_WriteTrimValue(RCHF8M_TRIM);
+    FL_CMU_RCHF_SetFrequency(FL_CMU_RCHF_FREQUENCY_8MHZ);
+
+    /* Config PLL */
+    FL_CMU_PLL_Disable();
+    FL_CMU_PLL_SetClockSource(FL_CMU_PLL_CLK_SOURCE_RCHF);
+    FL_CMU_PLL_SetPrescaler(FL_CMU_PLL_PSC_DIV8);
+    FL_CMU_PLL_WriteMultiplier(48 - 1);
+    FL_CMU_PLL_Enable();
+
+    /* Wait for the PLL lock flag */
+    uint32_t timeout = 0xFFFFFFFFUL;
+    do
+    {
+        if(FL_CMU_IsActiveFlag_PLLReady() == 0x1U)
+        {
+            break;
+        }
+
+        /* Clear watchdog */
+        FL_IWDT_ReloadCounter(IWDT);
+
+    } while (--timeout > 0);
+
+    /* Set flash read wait */
+    FL_FLASH_SetCodeReadWait(FLASH, FL_FLASH_CODE_WAIT_0CYCLE);
+
+    /* Set system clock source and bus prescaler */
+    FL_CMU_SetAHBPrescaler(FL_CMU_AHBCLK_PSC_DIV2);
+    FL_CMU_SetAPB1Prescaler(FL_CMU_APB1CLK_PSC_DIV1);
+    FL_CMU_SetSystemClockSource(FL_CMU_SYSTEM_CLK_SOURCE_PLL);
+
+    /* Update system core clock */
+    SystemCoreClock = 24000000;
+
+    /* USER SYSTEM CLOCK INIT BEGIN */
+
+    /* USER SYSTEM CLOCK INIT END */
+}
+
+/* TSI interrupt handler */
+void MUX19_IRQHandler(void)
+{
+    TSI_Dev_Handler(TSI_LibHandle.driver);
+}
+
+#endif
