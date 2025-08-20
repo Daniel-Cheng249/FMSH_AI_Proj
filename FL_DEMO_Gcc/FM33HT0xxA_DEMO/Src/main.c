@@ -91,13 +91,13 @@ int main(void)
     FL_Init();
     
     /* 使能SVD,阈值4.157V(falling)~4.257V(rising) */
-    (void)SVD_Init(SVD_MONTIOR_VDD,FL_SVD_WARNING_THRESHOLD_GROUP11,FL_SVD_REFERENCE_1P0V,FL_SVD_Mode_LOWVOLTAGE_WARNING);
+    //(void)SVD_Init(SVD_MONTIOR_VDD,FL_SVD_WARNING_THRESHOLD_GROUP11,FL_SVD_REFERENCE_1P0V,FL_SVD_Mode_LOWVOLTAGE_WARNING);
     
     /* 确认SVD监测结果是否高于阈值，如否则持续等待 */
-    while(false == SVD_Result_Confirmed(SVD_HIGHER_THRESHOLD, 2000U/*us*/));
+    //while(false == SVD_Result_Confirmed(SVD_HIGHER_THRESHOLD, 2000U/*us*/));
     
     /* 使能SVD低压复位功能,阈值2.657V(falling)~2.757V(rising) */
-    (void)SVD_Init(SVD_MONTIOR_VDD,FL_SVD_WARNING_THRESHOLD_GROUP4,FL_SVD_REFERENCE_1P0V, FL_SVD_Mode_UNDERVOLTAGE_RESET);
+    //(void)SVD_Init(SVD_MONTIOR_VDD,FL_SVD_WARNING_THRESHOLD_GROUP4,FL_SVD_REFERENCE_1P0V, FL_SVD_Mode_UNDERVOLTAGE_RESET);
         
     /* Initialize all configured peripherals */
     /* SHOULD BE KEPT!!! */
@@ -114,6 +114,8 @@ int main(void)
         /* 清狗 */
         IWDT_Clr();
         
+            //CapClassificationSetup();
+      //CapClassificationPerformInference(); 
         /* LED 闪烁 */
         LED0_TOG();
         FL_DelayMs(500);

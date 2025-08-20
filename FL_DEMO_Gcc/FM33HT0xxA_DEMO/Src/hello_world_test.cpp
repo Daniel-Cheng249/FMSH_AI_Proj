@@ -14,18 +14,16 @@
 
 /* ==========================================  Variables  =========================================== */
 namespace {
-// int8_t y_pred[10] = {0};
-float y_pred[10] = {0.0f};
-float z_pred = 0.0f;
+
 
 constexpr int kTensorArenaSize = 4 * 1024;
+//static uint8_t tensor_arena[kTensorArenaSize];
 static uint8_t tensor_arena[kTensorArenaSize];
-
 using HelloWorldOpResolver = tflite::MicroMutableOpResolver<1>;
 tflite::MicroInterpreter* interpreter = nullptr;
 
 /*The operators in trained model must be registered here, or cause Hardfault*/
-TfLiteStatus RegisterOps(tflite::MicroMutableOpResolver<6> &resolver)
+TfLiteStatus RegisterOps(tflite::MicroMutableOpResolver<3> &resolver)
 {
   resolver.AddFullyConnected();
   resolver.AddRelu();
@@ -49,17 +47,8 @@ extern "C" {
 /*Initialization and Setup of model, likely for all TFLM trained models */
 int CapClassificationSetup(void)
 {
-    /*load model from trained model_data array*/
-    const tflite::Model* model =
-      ::tflite::GetModel(g_hello_world_int8_model_data);
-    // TFLITE_CHECK_EQ(model->version(), TFLITE_SCHEMA_VERSION);
-    if (model->version() != TFLITE_SCHEMA_VERSION) {
-        /*Version check*/
-        return -1;
-    }
-
     /*Establish Op resolver*/
-    static tflite::MicroMutableOpResolver<6> op_resolver;
+    static tflite::MicroMutableOpResolver<3> op_resolver;
     if (RegisterOps(op_resolver) != kTfLiteOk) {
         return -2;
     }
@@ -77,6 +66,15 @@ int CapClassificationSetup(void)
     // tflite::MicroInterpreter interpreter(model, op_resolver, tensor_arena,
     //                                    kTensorArenaSize);
     /*Create interpreter, use abovementioned model, op_resolver, tensor*/
+      /*load model from trained model_data array*/
+    const tflite::Model* model =
+      ::tflite::GetModel(model_dynamit_quant_uint8_tflite);
+        // TFLITE_CHECK_EQ(model->version(), TFLITE_SCHEMA_VERSION);
+    if (model->version() != TFLITE_SCHEMA_VERSION) {
+        /*Version check*/
+        return -1;
+    }
+
     static tflite::MicroInterpreter static_interpreter(model, op_resolver, tensor_arena, kTensorArenaSize);
     interpreter = &static_interpreter;
 
@@ -94,6 +92,9 @@ int CapClassificationSetup(void)
     // }
     return 0;
 }
+float y_pred = 0;
+const float normalizaion_mean[3] = {10683.7421875, 10657.2158203125, 892.2108154296875};
+const float normalizaion_vari[3] = {0.0037, 0.004325, 0.01849};
 
 /*Periodic inference of the trained model*/
 int CapClassificationPerformInference(void)
@@ -105,65 +106,30 @@ int CapClassificationPerformInference(void)
   }
 
   TfLiteTensor* input = interpreter->input(0);
-  constexpr int kNumTestValues = 4;
-  float golden_inputs_float[kNumTestValues] = {0.77, 1.57, 2.3, 3.14};
-  int8_t golden_inputs_int8[kNumTestValues] = {0, 127, 30, 60};
+  TfLiteTensor* output = interpreter->output(0);
+  constexpr int kNumTestValues = 3;
+  //float golden_inputs_float[kNumTestValues] = {10358.0,	10373.0, 843.0};  // 0
+  float golden_inputs_float[kNumTestValues] = {10952.0, 10891.0,	966.0 };  //1
+
+  int8_t golden_inputs_int8[kNumTestValues] = {0, 0, 0};
 
   for (int i = 0; i < kNumTestValues; ++i) {
-    input->data.f[0] = golden_inputs_float[i];
-    // input->data.int8[0] = golden_inputs_int8[i];
-    /*Invoke() interface to execute inference by TFLM and inputed data, execution time?*/
-    if (interpreter->Invoke() != kTfLiteOk) {
-        return -2;
-    }
-
-    /*Get output from interpreter output*/
-    // float* output = interpreter->output(0)->data.f;
-    // y_pred[i] = interpreter->output(0)->data.int8[i];
-    y_pred[i] = interpreter->output(0)->data.f[0];
-
-    // TF_LITE_ENSURE_STATUS(interpreter.Invoke());
-    // float y_pred = (output->data.int8[0] - output_zero_point) * output_scale;
-    // TFLITE_CHECK_LE(abs(sin(golden_inputs_float[i]) - y_pred), epsilon);
+    golden_inputs_float[i] = (golden_inputs_float[i] - normalizaion_mean[i]) * normalizaion_vari[i];
+    golden_inputs_int8[i] = golden_inputs_float[i] / input->params.scale + input->params.zero_point;
+    input->data.int8[i] = golden_inputs_int8[i];
   }
 
-  for (int i = 0; i < 300; ++i)
-  {
-    input->data.f[0] = i * 0.03f;
-    if (interpreter->Invoke() != kTfLiteOk) {
-        return -2;
-    }
-    z_pred = interpreter->output(0)->data.f[0];
-
+  // input->data.int8[0] = golden_inputs_int8[i];
+  /*Invoke() interface to execute inference by TFLM and inputed data, execution time?*/
+  if (interpreter->Invoke() != kTfLiteOk) {
+      return -2;
   }
 
-  /*Convert input data into buffer and execute normalization*/
-  // float* input_buffer = interpreter->input(0)->data.f;
-  // input_buffer[0] = 0.0;
-  // input_buffer[1] = 0.5;
-  // input_buffer[2] = 1.1;
-  // input_buffer[3] = 2.0;
-  // input_buffer[4] = 3.0;
+  y_pred = (output->data.int8[0] - output->params.zero_point) * output->params.scale;
 
-  
-
-  // TfLiteTensor* input = interpreter->input(0);
-  // constexpr int kNumTestValues = 5;
-  // float golden_inputs[kNumTestValues] = {
-  //   {0.0},
-  //   {0.5},
-  //   {1.1},
-  //   {2.0},
-  //   {3.0},
-  // };
-  // for (int i = 0; i < kNumTestValues; ++i)
-  // {
-  //   input->data.f[i] = golden_inputs[i];
-  //   TF_LITE_ENSURE_STATUS(interpreter->Invoke());
-  //   y_pred[i] = interpreter->output(0)->data.f[0];
-  // }
-
-
+  // TF_LITE_ENSURE_STATUS(interpreter.Invoke());
+  // float y_pred = (output->data.int8[0] - output_zero_point) * output_scale;
+  // TFLITE_CHECK_LE(abs(sin(golden_inputs_float[i]) - y_pred), epsilon);
   return 0;
 }
 
